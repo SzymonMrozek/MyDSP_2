@@ -107,9 +107,8 @@ int main(){
     BSFirFilter* bsFirFilter = new BSFirFilter(300.0, 900.0, 3200.0, 3500.0, 44100.0, 0.001, 0.001);
     BPFirFilter* bpFirFilter = new BPFirFilter(300.0, 330.0, 1200.0, 4000.0, 44100.0, 0.001, 0.001);
     ParametricMidFirFilter* pmFirFilter = new ParametricMidFirFilter(500.0,2.0,1.0,44100.0,0.0001,0.0001);
-
-
-    FirEqualizer* eq = new FirEqualizer(true,13000.0,4.0,500.0,3.0, 2.5,1200.0,0.2,160.0,44100.0,0.0001,0.0001);
+    
+    FirEqualizer* eq = new FirEqualizer(true,13000.0,1.0,500.0,1.0, 0.8,1200.0,0.1778,160.0,44100.0,0.0001,0.0001);
     signal = eq -> FilterBuffer(signal,8192);
 
 

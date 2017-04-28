@@ -33,14 +33,14 @@ void FirEqualizer::SetLowpass(bool enable, double lowpass_cutoff) {
     lowpass -> initialize(enable,lowpass_cutoff);
 }
 
-void FirEqualizer::SetMidLow(bool enable, double q_factor, double sampling_frequency, double gain) {
+void FirEqualizer::SetMidLow(bool enable, double q_factor, double center_frequency, double gain) {
 
-    mid_low -> initialize(enable,q_factor,sampling_frequency,gain);
+    mid_low -> initialize(enable,q_factor,center_frequency,gain);
 }
 
-void FirEqualizer::SetMidHigh(bool enable, double q_factor, double sampling_frequency, double gain) {
+void FirEqualizer::SetMidHigh(bool enable, double q_factor, double center_frequency, double gain) {
 
-    mid_high -> initialize(enable,q_factor,sampling_frequency,gain);
+    mid_high -> initialize(enable,q_factor,center_frequency,gain);
 }
 
 void FirEqualizer::SetHighpass(bool enable, double highpass_cutoff) {

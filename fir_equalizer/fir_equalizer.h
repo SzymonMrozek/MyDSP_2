@@ -13,14 +13,13 @@ class FirEqualizer {
 
 public:
 
-    FirEqualizer(bool enable, double lowpass_cutoff, double mid_low_q_factor, double mid_low_center_frequency, double mid_low_gain,
-                 double mid_high_q_factor, double mid_high_center_frequency, double mid_high_gain, double highpass_cutoff,
-                 double sampling_frequency, double pass_band_ripple, double stop_band_ripple);
+    FirEqualizer(bool enable, double lowpass_cutoff, double mid_low_q_factor, double mid_low_center_frequency, double       mid_low_gain, double mid_high_q_factor, double mid_high_center_frequency, double mid_high_gain,
+        double highpass_cutoff,double sampling_frequency, double pass_band_ripple, double stop_band_ripple);
 
 
     void SetLowpass(bool enable, double lowpass_cutoff);
-    void SetMidLow(bool enable, double q_factor, double sampling_frequency, double gain);
-    void SetMidHigh(bool enable, double q_factor, double sampling_frequency, double gain);
+    void SetMidLow(bool enable, double q_factor, double center_frequency, double gain);
+    void SetMidHigh(bool enable, double q_factor, double center_frequency, double gain);
     void SetHighpass(bool enable, double highpass_cutoff);
 
     double FilterSample(double sample);
