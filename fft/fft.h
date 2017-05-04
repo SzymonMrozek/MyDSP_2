@@ -47,7 +47,7 @@ private:
     void FillSinesAndCosines();
     void FillWindowBuffer();
     
-    double * WindowHamming(double *signalCopy);
+    void WindowHamming(double *signal);
     double * UnWindowHamming(double *signalCopy);
     
     

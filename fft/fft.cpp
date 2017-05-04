@@ -59,15 +59,15 @@ FFT :: ~FFT(){
 
 void FFT :: Fft(double *signal){
     
-    
+ 
     double * signal_copy = new double[buffer_size_];
     if(is_window_enabled_){
-        signal_copy = WindowHamming(signal);
+        WindowHamming(signal);
     }
     else{
-        
         copy(signal, signal+buffer_size_, signal_copy);
     }
+  
     
     // Global iterator - used to iterate over whole Fft array
     
@@ -95,8 +95,8 @@ void FFT :: Fft(double *signal){
         index_even   =  global_iterator;
         index_odd    =  global_iterator + 1;
         // assign to temp values
-        even_real = signal_copy[indexes_[index_even]];
-        odd_real = signal_copy[indexes_[index_odd]];
+        even_real = signal[indexes_[index_even]];
+        odd_real = signal[indexes_[index_odd]];
         
         // butterfly
         fft_real_[index_even] = even_real + odd_real;
@@ -173,6 +173,7 @@ void FFT :: Fft(double *signal){
         dft_size <<= 1;
         jump <<= 1;
     }
+    delete [] signal_copy;
     
 }
 
@@ -415,15 +416,11 @@ double * FFT :: Freqs(){
     return fft_freqs_;
 }
 
-double * FFT :: WindowHamming(double *signal){
-    
-    double * windowed = new double [buffer_size_];
-    
+void FFT :: WindowHamming(double *signal){
+       
     for(int i = 0 ; i < buffer_size_ ; i++){
-        windowed[i] = signal[i] * window_buffer_[i];
+        signal[i] = signal[i] * window_buffer_[i];
     }
-    
-    return windowed;
 }
 double * FFT :: UnWindowHamming(double *signal){
     
