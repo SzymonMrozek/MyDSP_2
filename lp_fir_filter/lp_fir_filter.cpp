@@ -52,6 +52,8 @@ void LPFirFilter::initialize(bool enable, double cutoff_frequency) {
     transition_bandwidth_ = cutoff_frequency/4.0;
     transition_band_center_ = (stop_band_frequency_ + cutoff_frequency)/(2.0 * sampling_frequency_);
     normalized_omega_ =  PIx2 * transition_band_center_ ;
+    Length();
+    
     SetImpulseResponse(GenerateImpulseResponse());
 
 }

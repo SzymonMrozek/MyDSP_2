@@ -20,7 +20,7 @@ public:
     
     bool IsEmpty();
     double* GetImpulseResponse();
-    void SetImpulseResponse(double* impulse_response);
+    void SetImpulseResponse(double* impulse_response, int length);
 
     void AddToBuffer(double value);
     double OutputOfCurrent();

@@ -44,8 +44,9 @@ double * FirRingBuffer :: GetImpulseResponse(){
     return impulse_response_;
 }
 
-void FirRingBuffer::SetImpulseResponse(double *impulse_response) {
+void FirRingBuffer::SetImpulseResponse(double *impulse_response, int length){
     impulse_response_ = impulse_response;
+    length_ = length;
 }
 
 void FirRingBuffer :: AddToBuffer(double value){
@@ -67,6 +68,8 @@ double FirRingBuffer :: OutputOfCurrent(){
         output += (buffer_iterator -> value_) * impulse_response_[i];
         buffer_iterator = buffer_iterator -> previous_;
     }
+    
+    buffer_iterator = nullptr;
     return output;
 }
 

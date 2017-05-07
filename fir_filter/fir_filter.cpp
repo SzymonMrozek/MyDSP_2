@@ -6,7 +6,7 @@
 //  Copyright © 2017 Szymon Mrozek. All rights reserved.
 //
 
-
+#include <cstring>
 #include "fir_filter.h"
 #include "../fir_ring_buffer/fir_ring_buffer.h"
 
@@ -23,13 +23,14 @@ double FirFilter :: FilterSample(double sample){
 
 double * FirFilter :: FilterBuffer(double *samples_buffer, int count){
     
-    double * output = new double [count];
+    double * temp = new double[count];
+    std::memcpy(temp,samples_buffer,count * sizeof(double));
     
     for(int i = 0 ; i < count ; i ++ ){
-        output[i] = FilterSample(samples_buffer[i]);
+        samples_buffer[i] = FilterSample(temp[i]);
     }
-    
-    return output;
+    delete [] temp;
+    return samples_buffer;
 }
 
 void FirFilter::setEnable(bool enable) {
@@ -53,7 +54,7 @@ double *FirFilter::GetImpulseResponse() {
 
 
 void FirFilter::SetImpulseResponse(double *impulse_response) {
-    filter_ -> SetImpulseResponse(impulse_response);
+    filter_ -> SetImpulseResponse(impulse_response,length_);
 }
 
 
