@@ -11,9 +11,13 @@
 ParametricMidFirFilter::ParametricMidFirFilter(double center_frequency, double q_factor, double gain,
                                                double sampling_frequency, double pass_band_ripple,
                                                double stop_band_ripple) : FirFilter(sampling_frequency,pass_band_ripple,stop_band_ripple),
-                                                                          q_factor_(q_factor), center_frequency_(center_frequency), gain_(gain) {
-
-    initialize(false,q_factor_,center_frequency_,gain_);
+                                                q_factor_(q_factor), center_frequency_(center_frequency), gain_(gain) {
+    
+                                                    
+                                                    
+                                                                            
+                                                    filter_ = new FirRingBuffer(new double [1],1);
+                                                    initialize(false,q_factor_,center_frequency_,gain_);
 
 }
 
@@ -78,6 +82,8 @@ void ParametricMidFirFilter::initialize(bool enable, double q_factor, double cen
     for(auto i = 0; i < band_pass -> GetLength(); ++i){
         impulse_response[i] = band_stop_response[i] + band_pass_response[i] * gain;
     }
-    filter_ = new FirRingBuffer(impulse_response,band_stop->GetLength());
+    filter_ -> SetImpulseResponse(impulse_response,band_stop->GetLength());
+    //delete band_stop;
+    //delete band_pass;
 
 }
