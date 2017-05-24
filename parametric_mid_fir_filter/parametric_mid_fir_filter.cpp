@@ -17,7 +17,7 @@ ParametricMidFirFilter::ParametricMidFirFilter(double center_frequency, double q
                                                     
                                                                             
                                                     filter_ = new FirRingBuffer(new double [1],1);
-                                                    initialize(false,q_factor_,center_frequency_,gain_);
+                                                    initialize(true,q_factor_,center_frequency_,gain_);
 
 }
 
@@ -61,6 +61,7 @@ void ParametricMidFirFilter::SetGain(double gain) {
 void ParametricMidFirFilter::initialize(bool enable, double q_factor, double center_frequency, double gain){
 
     enable_ = enable;
+    q_factor_ = q_factor;
     auto cutoff_bandwidth = center_frequency / q_factor_;
     auto cutoff_bandwidth_divided = cutoff_bandwidth / 2.0;
 
@@ -68,6 +69,7 @@ void ParametricMidFirFilter::initialize(bool enable, double q_factor, double cen
     auto cutoff_frequency_right = center_frequency + cutoff_bandwidth_divided;
     auto stop_frequency_left = center_frequency - cutoff_bandwidth;
     auto stop_frequency_right = center_frequency + cutoff_bandwidth;
+
 
 
     auto band_stop = new BSFirFilter(stop_frequency_left,cutoff_frequency_left,cutoff_frequency_right,stop_frequency_right,
@@ -82,7 +84,7 @@ void ParametricMidFirFilter::initialize(bool enable, double q_factor, double cen
     for(auto i = 0; i < band_pass -> GetLength(); ++i){
         impulse_response[i] = band_stop_response[i] + band_pass_response[i] * gain;
     }
-    filter_ -> SetImpulseResponse(impulse_response,band_stop->GetLength());
+    filter_ -> SetImpulseResponse(impulse_response,band_pass->GetLength());
     //delete band_stop;
     //delete band_pass;
 

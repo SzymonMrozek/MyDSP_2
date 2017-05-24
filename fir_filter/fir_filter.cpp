@@ -27,7 +27,7 @@ double * FirFilter :: FilterBuffer(double *samples_buffer, int count){
     std::memcpy(temp,samples_buffer,count * sizeof(double));
     
     for(int i = 0 ; i < count ; i ++ ){
-        samples_buffer[i] = FilterSample(temp[i]);
+        samples_buffer[i] = FilterSample(samples_buffer[i]);
     }
     delete [] temp;
     return samples_buffer;

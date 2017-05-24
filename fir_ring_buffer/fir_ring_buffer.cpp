@@ -47,6 +47,23 @@ double * FirRingBuffer :: GetImpulseResponse(){
 void FirRingBuffer::SetImpulseResponse(double *impulse_response, int length){
     impulse_response_ = impulse_response;
     length_ = length;
+    if(length_ > 0){
+
+        RingNode * new_node = new RingNode(0.0);
+
+        buffer_ = new_node;
+        buffer_ -> next_     = buffer_;
+        buffer_ -> previous_ = buffer_;
+
+
+        for(int i = 1 ; i < length_ ; i ++ ){
+            buffer_->Add(0.0);
+        }
+        is_empty_ = false;
+    }else{
+        is_empty_ = true;
+    }
+
 }
 
 void FirRingBuffer :: AddToBuffer(double value){
